@@ -39,6 +39,7 @@ class User(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     phone = Column(String(15), unique=True, nullable=True) # made nullable for email/google users
     email = Column(String(100), unique=True, nullable=True)
+    hashed_password = Column(String(255), nullable=True)
     google_provider_id = Column(String(100), unique=True, nullable=True)
     name = Column(String(100), nullable=True)
     city = Column(String(100), nullable=True)
