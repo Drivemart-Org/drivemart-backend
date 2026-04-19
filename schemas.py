@@ -3,6 +3,20 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 from uuid import UUID
 
+class ListingCreateRequest(BaseModel):
+    make: str
+    model: str
+    variant: Optional[str] = None
+    year: int
+    mileage_km: int
+    fuel_type: str
+    transmission: str
+    asking_price: int
+    city: str
+    locality: Optional[str] = None
+    description: Optional[str] = None
+    photos: Optional[List[str]] = None
+
 class ListingResponse(BaseModel):
     id: UUID
     seller_id: Optional[UUID] = None

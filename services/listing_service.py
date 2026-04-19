@@ -70,3 +70,40 @@ class ListingService:
             listing_data["dealer"] = dealer
             
         return listing_data
+
+    def get_my_listings(self, user_id: str):
+        query = self.db.query(models.Listing).filter(models.Listing.seller_id == user_id)
+        total = query.count()
+        items = query.order_by(desc(models.Listing.created_at)).all()
+        
+        dealer = self.db.query(models.DealerProfile).filter(models.DealerProfile.user_id == user_id).first()
+        result_items = []
+        for item in items:
+            data = item.__dict__.copy()
+            if dealer:
+                data['dealer'] = dealer
+            result_items.append(data)
+            
+        return result_items, total
+
+    def create_listing(self, user_id: str, data: dict):
+        new_listing = models.Listing(
+            seller_id=user_id,
+            make=data.get("make"),
+            model=data.get("model"),
+            variant=data.get("variant"),
+            year=data.get("year"),
+            mileage_km=data.get("mileage_km"),
+            fuel_type=data.get("fuel_type"),
+            transmission=data.get("transmission"),
+            asking_price=data.get("asking_price"),
+            city=data.get("city"),
+            locality=data.get("locality"),
+            description=data.get("description"),
+            photos=data.get("photos", []),
+            status="under_review"
+        )
+        self.db.add(new_listing)
+        self.db.commit()
+        self.db.refresh(new_listing)
+        return new_listing

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import auth, listings, dealers
+from api import auth, listings, dealers, upload
 
 app = FastAPI(
     title="DriveMart API",
@@ -19,6 +19,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 app.include_router(listings.router, prefix="/api/v1/listings", tags=["Listings"])
 app.include_router(dealers.router, prefix="/api/v1/dealers", tags=["Dealers"])
+app.include_router(upload.router, prefix="/api/v1/upload", tags=["Uploads"])
 
 @app.get("/api/v1/health")
 def health_check():
