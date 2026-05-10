@@ -25,3 +25,8 @@ app.include_router(payments.router, prefix="/api/v1/payments", tags=["Payments"]
 @app.get("/api/v1/health")
 def health_check():
     return {"status": "ok"}
+
+
+@app.get("/")
+def health_check():
+    return {"status": "Welcome to DriveMart API"}
