@@ -63,3 +63,17 @@ class SearchResponse(BaseModel):
 class DealerMetadataResponse(BaseModel):
     dealer: DealerProfileResponse
     listings: List[ListingResponse]
+
+class PaymentOrderCreate(BaseModel):
+    listing_id: UUID
+
+class PaymentOrderResponse(BaseModel):
+    razorpay_order_id: str
+    amount: int
+    currency: str
+
+class PaymentVerifyRequest(BaseModel):
+    razorpay_order_id: str
+    razorpay_payment_id: str
+    razorpay_signature: str
+    listing_id: UUID

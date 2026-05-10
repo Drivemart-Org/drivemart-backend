@@ -87,6 +87,7 @@ class Listing(Base):
     features = Column(JSONB, nullable=True)
     photos = Column(ARRAY(Text), nullable=True)
     status = Column(Enum(ListingStatusEnum), default=ListingStatusEnum.under_review)
+    is_paid = Column(Boolean, default=False)
     view_count = Column(Integer, default=0)
     enquiry_count = Column(Integer, default=0)
     expires_at = Column(DateTime(timezone=True), nullable=True)
