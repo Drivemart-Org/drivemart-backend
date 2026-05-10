@@ -28,5 +28,5 @@ def health_check():
 
 
 @app.get("/")
-def health_check():
+def health():
     return {"status": "Welcome to DriveMart API"}
